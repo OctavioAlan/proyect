@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+    <h1>MG Estadistica  {{ current_user.username }}</h1>
+
+    <p>Por favor, elige una de las siguientes opciones estadisticas que necesites calcular:</p>
+    <div class="options-grid">
+        <div class="option-card" data-option="time_series" style="background-image: url({{ url_for('static', filename='imagenes/mining1.jpg') }});">
+            <div class="option-text">Time Series</div>
+        </div>
+        <!-- Las otras tarjetas de opciones van aquí... -->
+        <div class="option-card" data-option="k_means" style="background-image: url({{ url_for('static', filename='imagenes/kmedia.jpg') }});">
+            <div class="option-text">k means</div>
+        </div>
+        <div class="option-card" data-option="Metodos_Jerarquicos" style="background-image: url({{url_for('static', filename='imagenes/metodosJ.jpg')}});">
+            <div class="option-text">Metodos Jerarquicos</div>
+        </div>
+        <div class="option-card" data-option="clasificacion" style="background-image: url({{ url_for('static', filename='imagenes/clasificacion.jpg') }});">
+            <div class="option-text">Clasificacion</div>    
+        </div>
+        <div class="option-card" data-option="Regresion_Lineal_Simple" style="background-image: url({{ url_for('static', filename='imagenes/regresion.jpg') }});">
+            <div class="option-text">Regresion Lineal Simple</div>
+        </div>
+        <div class="option-card" data-option=""Regresion_multiple" style="background-image: url({{ url_for('static', filename='imagenes/regresionM.jpg') }});">
+            <div class="option-text">"Regresion multiple</div>
+        </div>
+        <div class="option-card" data-option="Regresion_Logistica" style="background-image: url({{ url_for('static', filename='imagenes/regresionL.jpg') }});">
+            <div class="option-text">Regresion Logistica</div>
+        </div>
+        <div class="option-card" data-option="Analisis_de_Discriminacion_lineal" style="background-image: url({{ url_for('static', filename='imagenes/analisisD.jpg') }});">
+            <div class="option-text">Analisis de Discriminacion lineal</div>
+        </div>
+        <div class="option-card" data-option="Analisis_de_Discriminacion_cuadratica" style="background-image: url({{ url_for('static', filename='imagenes/analisisC.jpg') }});">
+            <div class="option-text">Analisis de Discriminacion cuadratica</div>
+        </div>
+        <div class="option-card" data-option="Arboles_de_Decision" style="background-image: url({{ url_for('static', filename='imagenes/arboles.jpg') }});">
+            <div class="option-text">Arboles de Decision</div>
+        </div>
+        <div class="option-card" data-option="Ramdon_Forest" style="background-image: url({{ url_for('static', filename='imagenes/ramdon.jpg') }});">
+            <div class="option-text">Ramdon Forest</div>
+        </div>
+        <div class="option-card" data-option="Naive_Bayes" style="background-image: url({{ url_for('static', filename='imagenes/naive.jpg') }});">
+            <div class="option-text">Naive Bayes</div>
+        </div>
+        <div class="option-card" data-option="Redes_Neuronales" style="background-image: url({{ url_for('static', filename='imagenes/redes.jpg') }});">
+            <div class="option-text">Redes Neuronales</div>
+        </div>
+        <div class="option-card" data-option="Maquina_de_Soporte_vectorial" style="background-image: url({{ url_for('static', filename='imagenes/msv.jpg') }});">
+            <div class="option-text">SVM</div>
+        </div>
+        <div class="option-card" data-option="Procesamieto_de_Texto" style="background-image: url({{ url_for('static', filename='imagenes/texto.jpg') }});">
+            <div class="option-text">K Nearest Neighbors</div>
+        </div>
+        <div class="option-card" data-option="Analisis_de_Sentimiento" style="background-image: url({{ url_for('static', filename='imagenes/sentimientos.jpg') }});">
+            <div class="option-text">Analisis de Sentimiento</div>
+        </div>
+        
+        
+        <!-- Repite el bloque anterior para cada opción, cambiando el valor de data-option y el contenido de option-text -->
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+$(document).ready(function(){
+    $(".option-card").click(function(){
+        var option = $(this).data('option');
+        $.post("/home", { option: option })
+            .done(function(data){
+                window.location.href = data.redirect_url;
+            });
+    });
+});
+</script>
+
+{% endblock %}
